@@ -1,6 +1,8 @@
 # xrizer - XR-ize your OpenVR games
 
-> **Fork note (branch `quest-vrik-controllers`):** reports a Quest Touch identity for WiVRn's generic controller profile and an Oculus HMD identity, so Skyrim VR + VRIK keeps sticks and face buttons on idle or sleeping controllers. See the two commits on top of upstream `main`.
+> **Fork note (branch `quest-vrik-controllers`), Quest headsets only:** reports a Quest Touch identity for WiVRn's generic controller profile and an Oculus HMD identity, so Skyrim VR + VRIK keeps sticks and face buttons on idle or sleeping controllers. See the two commits on top of upstream `main`.
+>
+> **Do not use it with other headsets** (Index, Vive, Pico, …): it reports Touch controllers and an Oculus headset regardless of the actual hardware.
 >
 > Not a coder – Claude wrote most of it, I only tested it on my rig. If it sets your PC on fire, blame the robot. 😉
 
