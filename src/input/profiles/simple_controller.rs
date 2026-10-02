@@ -13,22 +13,29 @@ pub struct SimpleController;
 impl InteractionProfile for SimpleController {
     type LegalPaths = legal_paths![Both::<(Select, Click), (Menu, Click)>];
     fn properties() -> &'static ProfileProperties {
+        // WiVRn reports this generic profile for Quest controllers while they idle (hand
+        // tracking) or sleep; report a Touch identity so games like VRIK don't pick Vive Wands.
         static DEVICE_PROPERTIES: ProfileProperties = ProfileProperties {
-            model: Property::BothHands(c"generic"),
-            openvr_controller_type: c"<unknown>",
-            render_model_name: Property::BothHands(c"generic_controller"),
+            model: Property::PerHand {
+                left: c"Oculus Quest2 (Left Controller)",
+                right: c"Oculus Quest2 (Right Controller)",
+            },
+            openvr_controller_type: c"oculus_touch",
+            render_model_name: Property::PerHand {
+                left: c"oculus_quest2_controller_left",
+                right: c"oculus_quest2_controller_right",
+            },
             main_axis: MainAxisType::Thumbstick,
-            // TODO: These are just from the vive_controller. I'm not certain whether that's correct here
             registered_device_type: Property::PerHand {
-                left: c"htc/vive_controllerLHR-00000001",
-                right: c"htc/vive_controllerLHR-00000002",
+                left: c"oculus/WMHD315M3010GV_Controller_Left",
+                right: c"oculus/WMHD315M3010GV_Controller_Right",
             },
             serial_number: Property::PerHand {
-                left: c"LHR-00000001",
-                right: c"LHR-00000002",
+                left: c"WMHD315M3010GV_Controller_Left",
+                right: c"WMHD315M3010GV_Controller_Right",
             },
-            tracking_system_name: c"lighthouse",
-            manufacturer_name: c"HTC",
+            tracking_system_name: c"oculus",
+            manufacturer_name: c"Oculus",
             legacy_buttons_mask: button_mask_from_ids!(
                 btn::System,
                 btn::ApplicationMenu,
