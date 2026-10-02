@@ -577,10 +577,22 @@ impl vr::IVRSystem026_Interface for System {
                 // The Unity OpenVR sample appears to have a hard requirement on these first three properties returning
                 // something to even get the game to recognize the HMD's location. However, the value
                 // itself doesn't appear to be that important.
-                vr::ETrackedDeviceProperty::SerialNumber_String
-                | vr::ETrackedDeviceProperty::ManufacturerName_String
-                | vr::ETrackedDeviceProperty::ControllerType_String => {
-                    Some(CString::new("<unknown>").unwrap())
+                // Bethesda VR ports may pick their control scheme from the HMD identity, so report
+                // an Oculus one instead of "<unknown>" (xrizer issue #365).
+                vr::ETrackedDeviceProperty::SerialNumber_String => {
+                    Some(CString::new("WMHD315M3010GV").unwrap())
+                }
+                vr::ETrackedDeviceProperty::ManufacturerName_String => {
+                    Some(CString::new("Oculus").unwrap())
+                }
+                vr::ETrackedDeviceProperty::ControllerType_String => {
+                    Some(CString::new("oculus_touch").unwrap())
+                }
+                vr::ETrackedDeviceProperty::TrackingSystemName_String => {
+                    Some(CString::new("oculus").unwrap())
+                }
+                vr::ETrackedDeviceProperty::ModelNumber_String => {
+                    Some(CString::new("Oculus Quest2").unwrap())
                 }
                 _ => None,
             },
